@@ -115,21 +115,16 @@ int main()
     struct Deque d(4);
 
     d.push_back(1);
-    d.push_front(7);
-    d.push_back(5);
-    d.push_front(3);
+    d.push_front(2);
+    d.push_back(3);
+    d.push_front(4);
 
-    cout << "Insering an element to completely filled deque...\n";
-    d.push_back(9);
+    cout << d.pop_back() << endl;
+    d.push_front(5);
+    cout << d.pop_back() << endl;
+    cout << d.pop_back() << endl;
+    cout << d.pop_back() << endl;
+    cout << d.pop_back() << endl;
 
-    cout << "Removing elements...\n";
-    while (!d.isEmpty())
-    {
-        cout << d.pop_front() << ' ' << d.pop_back() << ' ';
-    }
-
-    cout << '\n';
-
-    return 0;
     return 0;
 }
