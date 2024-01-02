@@ -1,75 +1,149 @@
-// Enqueue and Dequeue operation in Circular Queue
 #include <iostream>
+
 using namespace std;
-struct Cqueue
+
+/* Double-ended queue */
+template <class T>
+class Deque
 {
 private:
-    int front, rear, size, capacity;
-    int *arr;
+    T *arr;
+    int front, back;
+    int capacity, size;
 
 public:
-    Cqueue(int cap)
+    Deque(int capacity)
     {
-        capacity = cap;
+        arr = new T[capacity];
         front = -1;
-        rear = -1;
+        back = -1;
+        this->capacity = capacity;
         size = 0;
-        arr = new int[cap];
-    }
-    ~Cqueue()
-    {
-        delete arr;
     }
 
-    bool isEmpty()
+    ~Deque()
+    {
+        delete[] arr;
+    }
+
+    /* Check whether the deque is empty */
+    bool empty()
     {
         return size == 0;
     }
 
-    void enqueue(int x)
+    /* Insert an element with given value at the end of the deque
+    Time: O(1)
+    Space: O(1) */
+    void push_back(T value)
     {
         if (size == capacity)
         {
-            cout << "Queue is full.";
+            cout << "Deque is full!\n";
             return;
         }
-        else
-        {
-            rear = (rear + 1) % capacity;
-            arr[rear] = x;
-            front = (front == -1) ? 0 : front;
-            size++;
-        }
+
+        back = (back + 1) % capacity;
+        arr[back] = value;
+
+        front = (front == -1) ? 0 : front;
+        ++size;
     }
 
-    int dequeue()
+    /* Insert an element with given value at the beginning of the deque
+    Time: O(1)
+    Space: O(1) */
+    void push_front(T value)
     {
-        if (isEmpty())
+        if (size == capacity)
         {
-            cout << "Queue is Empty";
-            exit(0);
+            cout << "Deque is full!\n";
+            return;
+        }
+
+        if (front == -1)
+        {
+            front = 0;
+        }
+        else if (front == 0)
+        {
+            front = capacity - 1;
         }
         else
         {
-            int temp = arr[front];
-            front = (front + 1) % capacity;
-            size--;
-            return temp;
+            --front;
         }
+
+        arr[front] = value;
+        ++size;
+    }
+
+    /* Remove the first element from the deque and return its value
+    Time: O(1)
+    Space: O(1) */
+    T pop_front()
+    {
+        if (size == 0)
+        {
+            cout << "Deque is empty!\n";
+            return -1;
+        }
+
+        int value = arr[front];
+        --size;
+        if (size == 0)
+        {
+            front = back = -1;
+            return value;
+        }
+
+        front = (front + 1) % capacity;
+        return value;
+    }
+
+    /* Remove the last element from the deque and return its value
+    Time: O(1)
+    Space: O(1) */
+    T pop_back()
+    {
+        if (size == 0)
+        {
+            cout << "Deque is empty!\n";
+            return -1;
+        }
+
+        int value = arr[back];
+        --size;
+        if (size == 0)
+        {
+            front = back = -1;
+            return value;
+        }
+
+        back = (back == 0) ? (capacity - 1) : --back;
+        return value;
     }
 };
 
 int main()
 {
-    struct Cqueue c(3);
-    cout << c.isEmpty() << endl;
-    c.enqueue(5);
-    c.enqueue(10);
-    cout << c.dequeue() << endl;
-    c.enqueue(15);
-    c.enqueue(20);
-    cout << c.dequeue() << endl;
-    cout << c.dequeue() << endl;
-    cout << c.dequeue() << endl;
+    Deque<int> d(4);
+
+    d.push_back(1);
+    d.push_front(7);
+    d.push_back(5);
+    d.push_front(3);
+
+    cout << "Insering an element to completely filled deque...\n";
+    d.push_back(9);
+
+    cout << "Removing elements...\n";
+    while (!d.empty())
+    {
+        cout << d.pop_front() << ' ' << d.pop_back() << ' ';
+    }
+
+    cout << '\n';
+
     return 0;
 }
