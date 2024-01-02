@@ -15,6 +15,10 @@ public:
         size = 0;
         arr = new int[cap];
     }
+    ~queue()
+    {
+        delete[] arr;
+    }
     bool isEmpty()
     {
         return ((rear == -1) || front == rear + 1);
