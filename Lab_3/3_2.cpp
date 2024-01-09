@@ -22,6 +22,7 @@ void printList(Node *head)
         cout << curr->data << " ";
         curr = curr->next;
     }
+    cout << endl;
 }
 
 Node *insertBeg(Node *head, int x)
@@ -100,7 +101,7 @@ Node *delAfter(Node *head, int after)
     else
     {
         Node *curr = head;
-        while (curr->data != after)
+        for (int i = 1; i < after; i++)
         {
             curr = curr->next;
         }
@@ -119,12 +120,9 @@ int main()
     head = insertEnd(head, 30);
     head = insertEnd(head, 40);
     head = insertEnd(head, 50);
-
     printList(head);
-    cout << endl;
 
-    head = delAfter(head, 30);
-
+    head = delAfter(head, 3);
     printList(head);
     return 0;
 }

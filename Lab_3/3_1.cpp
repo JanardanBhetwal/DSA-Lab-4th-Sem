@@ -48,7 +48,7 @@ Node *insertAfter(Node *head, int after, int x)
     Node *temp = new Node(x);
     temp->data = x;
     Node *curr = head;
-    while (curr->data != after)
+    for (int i = 1; i < after; i++)
     {
         curr = curr->next;
     }
@@ -63,7 +63,7 @@ Node *insertBefore(Node *head, int before, int x)
     Node *temp = new Node(x);
     temp->data = x;
     Node *curr = head;
-    while (curr->next->data != before)
+    for (int i = 1; i < before - 1; i++)
     {
         curr = curr->next;
     }
@@ -82,6 +82,7 @@ void printList(Node *head)
         cout << curr->data << " ";
         curr = curr->next;
     }
+    cout << endl;
 }
 
 int main()
@@ -91,9 +92,12 @@ int main()
     head = insertBeg(head, 20);
     head = insertBeg(head, 30);
     head = insertBeg(head, 40);
-    head = insertAfter(head, 30, 90);
-    head = insertBefore(head, 90, 5);
+    printList(head);
 
+    head = insertAfter(head, 2, 90);
+    printList(head);
+
+    head = insertBefore(head, 3, 5);
     printList(head);
     return 0;
 }
