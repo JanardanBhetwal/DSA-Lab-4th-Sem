@@ -47,10 +47,9 @@ Node *insertAfter(Node *head, int after, int x)
 {
     Node *temp = new Node(x);
     temp->data = x;
-    Node *curr = head->next;
+    Node *curr = head;
     while (curr->data != after)
     {
-        cout << "NO" << endl;
         curr = curr->next;
     }
     temp->next = curr->next;
