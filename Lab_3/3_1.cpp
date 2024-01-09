@@ -63,9 +63,18 @@ Node *insertBefore(Node *head, int before, int x)
     Node *temp = new Node(x);
     temp->data = x;
     Node *curr = head;
+    if (before == 1)
+    {
+        temp->next = head;
+        return temp;
+    }
     for (int i = 1; i < before - 1; i++)
     {
         curr = curr->next;
+    }
+    if (curr == NULL)
+    {
+        return head;
     }
     temp->next = curr->next;
     curr->next = temp;
@@ -97,7 +106,7 @@ int main()
     head = insertAfter(head, 2, 90);
     printList(head);
 
-    head = insertBefore(head, 3, 5);
+    head = insertBefore(head, 2, 5);
     printList(head);
     return 0;
 }
