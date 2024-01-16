@@ -36,6 +36,7 @@ Node *insertEnd(Node *head, int x)
     Node *curr = head;
     while (curr->next != NULL)
     {
+
         curr = curr->next;
     }
     curr->next = temp;
@@ -48,8 +49,12 @@ Node *insertAfter(Node *head, int after, int x)
     Node *temp = new Node(x);
     temp->data = x;
     Node *curr = head;
-    for (int i = 1; i < after; i++)
+    while (curr->data != after)
     {
+        if (curr->next == NULL)
+        {
+            return head;
+        }
         curr = curr->next;
     }
     temp->next = curr->next;
@@ -63,14 +68,18 @@ Node *insertBefore(Node *head, int before, int x)
     Node *temp = new Node(x);
     temp->data = x;
     Node *curr = head;
-    if (before == 1)
+    if (before == head->data)
     {
         temp->next = head;
         return temp;
     }
-    for (int i = 1; i < before - 1; i++)
+    while (curr->next->data != before)
     {
         curr = curr->next;
+        if (curr->next == NULL)
+        {
+            return head;
+        }
     }
     if (curr == NULL)
     {
@@ -103,10 +112,10 @@ int main()
     head = insertBeg(head, 40);
     printList(head);
 
-    head = insertAfter(head, 2, 90);
+    head = insertAfter(head, 10, 90);
     printList(head);
 
-    head = insertBefore(head, 2, 5);
+    head = insertBefore(head, 40, 5);
     printList(head);
     return 0;
 }
