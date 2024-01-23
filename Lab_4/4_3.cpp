@@ -38,37 +38,24 @@ Node *insertAndSort(Node *head, int ind, float cof)
     return head;
 }
 
-Node *add(Node *head1, Node *head2, Node *head3)
+Node *add(Node *head1, Node *head2)
 {
     Node *curr1 = head1;
     Node *curr2 = head2;
+    Node *head3 = NULL;
     while (curr1 != NULL || curr2 != NULL)
     {
-        if (curr1 == NULL)
+        if (curr1 == NULL || curr1->index < curr2->index)
         {
-            while (curr2 != NULL)
-            {
-                head3 = insertAndSort(head3, curr2->index, curr2->coeff);
-                curr2 = curr2->next;
-            }
-        }
-        if (curr2 == NULL)
-        {
-            while (curr1 != NULL)
-            {
-                head3 = insertAndSort(head3, curr1->index, curr1->coeff);
-                curr1 = curr1->next;
-            }
-        }
-        if (curr1->index > curr2->index)
-        {
-            head3 = insertAndSort(head3, curr1->index, curr1->coeff);
-            curr1 = curr1->next;
-        }
-        else if (curr1->index < curr2->index)
-        {
+
             head3 = insertAndSort(head3, curr2->index, curr2->coeff);
             curr2 = curr2->next;
+        }
+        else if (curr2 == NULL || curr1->index > curr2->index)
+        {
+
+            head3 = insertAndSort(head3, curr1->index, curr1->coeff);
+            curr1 = curr1->next;
         }
         else
         {
@@ -93,7 +80,8 @@ void printList(Node *head)
 
 int main()
 {
-    int index, coeff;
+    int index;
+    float coeff;
     Node *head1 = NULL;
     Node *head2 = NULL;
     Node *head3 = NULL;
@@ -122,7 +110,7 @@ int main()
     } while (n2 > 0);
     printList(head1);
     printList(head2);
-    head3 = add(head1, head2, head3);
+    head3 = add(head1, head2);
     printList(head3);
     return 0;
 }
