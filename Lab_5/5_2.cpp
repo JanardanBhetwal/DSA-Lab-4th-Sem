@@ -148,6 +148,9 @@ public:
         {
             curr = node[curr].next;
         }
+        int temp = node[curr].next;
+        freeNode(temp);
+        node[curr].next = -1;
     }
 
     void deleteAfter(int after)
