@@ -17,7 +17,10 @@ int Fibonacci(int n, int first = 0, int second = 1)
 
 int main()
 {
-    for (int i = 1; i < 9; i++)
+    int n;
+    cout << "Enter the number of terms of Fibonacci series:";
+    cin >> n;
+    for (int i = 1; i <= n; i++)
     {
         cout << Fibonacci(i) << " ";
     }
